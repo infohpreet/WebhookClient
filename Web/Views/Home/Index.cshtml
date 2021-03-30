@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div style="background-color:#627bf5;color:#FFF;font-size:28px;padding:20px;font-family:auto">
+    Webhook Client (/post)
+</div>
+<div>
+    @foreach (var item in ViewBag.Output)
+    {
+        <div style="padding:10px;border:0px solid gray;margin:5px 0px 0px 0px;background-color:#f4f3f9;color:#000;">
+            <table style="width:100%;" cellpadding="0" cellspacing="0"><tr><td style="text-align:left"><b>Body</b></td><td style="text-align:right">@item.TimeStamp</td></tr></table>
+            <hr />
+            <div style="word-break:break-word;">@item.Body</div>
+            <br />
+            <b>Headers</b>&nbsp;<span id="showhide_@item.Id" onclick="ShowHide(@item.Id);" style="font-weight:bold;cursor:pointer;">[+]</span>
+            <div id="headers_@item.Id" style="display:none;">
+                <hr />
+                @foreach (var header in @item.Headers)
+                {
+                    <div>@header.Key: @header.Value</div>
+                }
+            </div>
+        </div>
+    }
+</div>
+<script>
+    function ShowHide(id) {
+        if (document.getElementById('showhide_' + id).innerHTML == '[+]') {
+            document.getElementById('headers_' + id).style.display = '';
+            document.getElementById('showhide_' + id).innerHTML = '[-]';
+        }
+        else {
+            document.getElementById('headers_' + id).style.display = 'none';
+            document.getElementById('showhide_' + id).innerHTML = '[+]';
+        }
+    }
+</script>
